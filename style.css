@@ -1,0 +1,272 @@
+body {
+	background-color: #136936;
+	margin: 0px;
+	font-family: sans-serif;
+}
+
+#container {
+	width: 100%;
+    height: 100%;
+	display: table;
+	background-color: #136936;
+}
+.content {
+	width: 1000px;
+	height: 200px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+.plan {
+	width: 1000px;
+	margin: 0 auto;
+}
+#banner img {
+    width: 260px;
+	float: left;
+	display: table;
+}
+#top {
+	margin-bottom: 30px;
+	background-color: #016028;
+}
+
+#error {
+	margin: 20px 0px;
+    color: red;
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.day1 {
+	color: #016028;
+    font-size: 22px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #155d32;
+    padding-bottom: 10px;
+}
+.day1 span {
+	font-weight: bold;
+	font-size: 30px;
+	margin: 0 10px;
+}
+.day1 span:first-child {
+	font-weight: bold;
+	font-size: 30px;
+	margin: 0px 0 0 10px;
+}
+
+.room {
+	margin: 10px 15px 0 0;
+    color: #016028;
+	font-weight: bold;
+    text-decoration: none;
+	display: block;
+	float: left;
+}
+
+.room a, .room a:visited, .room a:link, .room a:hover, .room a:active{
+	color: #016028;
+	text-decoration: none;
+	border-bottom: 1px solid;
+}
+
+.entr {
+	margin: 3px 0;
+}
+
+.type {
+	font-size: 22px;
+}
+
+.check {
+	margin: 0 7px;
+}
+
+.or {
+	display: table;
+	padding: 8px 50px;
+	font-size: 22px;
+	font-weight: bold;
+	color: white;
+	float: left;
+}
+.or2 {
+	display: table;
+	padding: 11px 0px;
+	font-size: 18px;
+	font-weight: bold;
+	color: white;
+}
+.or2 a, .or2 a:visited, .or2 a:link, .or2 a:hover, .or2 a:active {
+	color: white;
+	text-decoration: none;
+	padding-bottom: 5px;
+	border-bottom: 1px solid;
+}
+#tags {
+	width: 400px;
+    color: white;
+    background-color: #006d2d;
+    border: 0px;
+    border-right: 2px solid #015624;
+    border-bottom: 2px solid #015624;
+    font-size: 30px;
+    padding: 5px;
+	float: left;
+	font-weight: bold;
+}
+#tags2 {
+	width: 200px;
+	margin: 0 10px;
+    color: white;
+    background-color: #006d2d;
+    border: 0px;
+    border-right: 2px solid #015624;
+    border-bottom: 2px solid #015624;
+    font-size: 30px;
+    padding: 5px;
+	float: left;
+	font-weight: bold;
+}
+#seek {
+	height: 46px;
+	cursor: pointer;
+	background-color: #0e4c27;
+	border-radius: 5px;
+	border: 1px solid #145d31;
+	color: white;
+}
+#seek1 {
+	height: 90px;
+	width: 130px;
+	cursor: pointer;
+	background-color: #0e4c27;
+	border-radius: 5px;
+	border: 1px solid #145d31;
+	color: white;
+	margin-top: 20px;
+}
+.input {
+	float: left;
+	margin: 0px 20px;
+}
+
+.input label {
+	color: white;
+	font-size: 22px;
+	font-weight: bold;
+	display: block;
+	padding: 0 0 15px 0;
+}
+
+.input:first-child input {
+	width: 270px;
+}
+
+.input input {
+	width: 230px;
+    color: white;
+    background-color: #006d2d;
+    border: 0px;
+    border-right: 2px solid #015624;
+    border-bottom: 2px solid #015624;
+    font-size: 30px;
+    padding: 5px;
+	float: left;
+}
+.data {
+    display: table;
+    margin: 0 auto;
+	font-size: 14px;
+}
+
+.prev {
+    margin: 10px 20px 10px 20px;
+    float: left;
+}
+
+.ctrl_list{
+	margin-top: 37px;
+}
+
+.hide {
+	display: none;
+}
+
+#footer {
+	color: white;
+	padding: 20px 0 10px 0;
+	position: fixed;
+    left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	background-color: #016028;
+}
+.updated {
+	font-size: small;
+	color: #24a258;
+}
+.entry table { 
+	font-size: 10px;
+}
+.table_pro a {
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+}
+.table_sal {
+	text-align: right;
+}
+.table_sal a {
+	text-align: right;
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+}
+.table_gr {
+	font-size: 9px;
+    white-space: nowrap;
+}
+.entry #title { 
+	font-size: 10px;
+	display: none;
+	transition-delay: 1s;
+}
+.entry:hover #title {
+	transition-property: display;
+	border: #c0c0c0 1px dotted;
+	padding: 5px 20px 5px 5px;
+	display: block;
+	background-color: white;
+	z-index: 100;
+	left: 100px;
+	margin: 10px;
+	position: absolute;
+	top: 10px;
+	text-decoration: none;
+}
+.rooms {
+	width: 1000px;
+	margin: 0 auto;
+	font-size: 20px;
+	padding: 0 20px;
+}
+
+.rooms1 {
+	display: table;
+    padding: 0 10px;
+}
+
+#tankGIF{
+    display:none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+    z-index: 10;
+}

@@ -1,0 +1,103 @@
+#plan {
+width: 680px;
+font-size: 10px;
+font-family: Verdana,sans-serif;
+display: table;
+}
+
+#plan_content {
+  height: 540px;
+  width: 680px;
+  border: 1px solid #ddd;
+}
+
+#plan #days  {
+  overflow: hidden;
+  padding-left: 50px;
+}
+
+#plan #days div {
+  float: left;
+  text-align: center;
+  padding: 5px 0;
+  width: 125px;
+  border-left: 1px solid #ddd;
+}
+
+#plan #hours {
+  float: left;
+  width: 50px;
+  margin-top: -6px;
+}
+
+#plan #hours div {
+  text-align: center;
+  width: 50px;
+  height: 36px;
+}
+
+#plan .day {
+  width: 125px;
+  height: 505px;
+  border-left: 1px solid #ddd;
+  float: left;
+  position: relative;
+}
+
+#plan .entry {
+  position: absolute;
+  width: auto;
+}
+
+#plan .wrap {
+  border-width: 0px;
+  border-style: solid;
+  border-radius: 2px;
+  -moz-border-radius: 0px;
+  height: 100%;
+  padding: 0 3px;
+  overflow: hidden;
+  position: relative;
+  width: 117px;
+}
+
+#plan .entry .module_name {
+  font-weight: bold;
+  font-size: 10px;
+}
+
+#plan .sep {
+  display: block;
+  height: 35px;
+  border-top: 1px solid #ddd;
+}
+
+
+#plan .lecturer {
+  max-height: 24px;
+  overflow: hidden;
+  font-size: 8px;
+}
+
+#plan .room1 {
+  font-size: 8px;
+}
+
+#plan .time {
+  font-size: 8px;
+}
+
+.module {
+  background-color: #f3b6b7;
+  border-color: #e63021;
+  color: #e63021;
+}
+
+.module a:link, .module a:visited {
+color: #e63021;
+text-decoration: none;
+}
+
+.module a:hover, .module a:active {
+color: #3A7FFF;
+}
