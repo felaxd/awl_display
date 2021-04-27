@@ -55,7 +55,7 @@ class ICS {
     }
     function add($start,$end,$name,$description,$location) {
 		
-        $this->data .= "BEGIN:VEVENT\nDTSTART;TZID=Europe/Warsaw:".date("Ymd\THis",strtotime($start))."\nDTEND;TZID=Europe/Warsaw:".date("Ymd\THis",strtotime($end))."\nLOCATION:".$location."\nTRANSP: OPAQUE\nSEQUENCE:0\nUID:".strtotime($start)."\nDTSTAMP:".date("Ymd\THis\Z")."\nSUMMARY:".$name."\nDESCRIPTION:".$description."\nPRIORITY:1\nCLASS:PUBLIC\nBEGIN:VALARM\nTRIGGER:-PT10080M\nACTION:DISPLAY\nDESCRIPTION:Reminder\nEND:VALARM\nEND:VEVENT\n";
+        $this->data .= "BEGIN:VEVENT\nDTSTART;TZID=Europe/Warsaw:".date("Ymd\THis",strtotime($start))."\nDTEND;TZID=Europe/Warsaw:".date("Ymd\THis",strtotime($end))."\nLOCATION:".$location."\nTRANSP: OPAQUE\nSEQUENCE:0\nUID:".strtotime($start)."\nDTSTAMP:".date("Ymd\THis\Z")."\nSUMMARY:".$name."\nDESCRIPTION:".$description."\nPRIORITY:1\nCLASS:PUBLIC\nBEGIN:VALARM\nTRIGGER:-PT15M\nACTION:DISPLAY\nDESCRIPTION:Reminder\nEND:VALARM\nEND:VEVENT\n";
     }
     function show($filename) {
         header("Content-type:text/calendar");
