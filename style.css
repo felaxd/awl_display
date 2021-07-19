@@ -129,6 +129,11 @@ body {
 	float: left;
 	font-weight: bold;
 }
+
+.sem1 {
+	background-color: #038f3d;
+}
+
 #seek {
 	height: 46px;
 	cursor: pointer;

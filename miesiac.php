@@ -156,6 +156,9 @@ if($mies < 1 || $mies > 12) $mies = (int)date("m");
 					<form style="float: left;" method="GET">
 						<input name="search" id="tags" maxlength="300" value=<?php if(isset($_GET['search'])) echo trim($_GET['search']); ?> />
 						<select name="miesiac" id="tags2">
+							<option class="sem1" <?php if($mies == 10) echo "selected";?> value="10">Październik</option>
+							<option class="sem1" <?php if($mies == 11) echo "selected";?> value="11">Listopad</option>
+							<option class="sem1" <?php if($mies == 12) echo "selected";?> value="12">Grudzień</option>
 							<option <?php if($mies == 1) echo "selected";?> value="1">Styczeń</option>
 							<option <?php if($mies == 2) echo "selected";?> value="2">Luty</option>
 							<option <?php if($mies == 3) echo "selected";?> value="3">Marzec</option>
@@ -165,9 +168,6 @@ if($mies < 1 || $mies > 12) $mies = (int)date("m");
 							<option <?php if($mies == 7) echo "selected";?> value="7">Lipiec</option>
 							<option <?php if($mies == 8) echo "selected";?> value="8">Sierpień</option>
 							<option <?php if($mies == 9) echo "selected";?> value="9">Wrzesień</option>
-							<option <?php if($mies == 10) echo "selected";?> value="10">Październik</option>
-							<option <?php if($mies == 11) echo "selected";?> value="11">Listopad</option>
-							<option <?php if($mies == 12) echo "selected";?> value="12">Grudzień</option>
 						</select>
 						<input type="submit" id="seek" value="WYSZUKAJ"/>
 					</form>
@@ -182,20 +182,15 @@ if($mies < 1 || $mies > 12) $mies = (int)date("m");
 				$input = trim($input);
 				$dateObj   = DateTime::createFromFormat('!m', $mies);
 				$monthName = $dateObj->format('F');
-				$poczatek_mies = date( 'Y-m-d', strtotime('first day of '.$monthName.' this year'));
+				$rok = 2021;
+				if($mies > 9) $rok = 2020;
+				$poczatek_mies = date( 'Y-m-d', strtotime('first day of '.$monthName.' '.$rok));
 			}
 				if(isset($input))
 					echo   "<div id='plan'>
 						<div id='plan_content'>
 							<div id='days'>";
-								$rok = date("Y");
-								$d = 30;
-								if($mies == 2) {
-									$d = 28;
-									if($rok % 4 == 0 && $rok % 100 != 0) $d = 29;
-									if($rok % 400 == 0) $d = 29;
-									}
-								if($mies % 2) $d = 31;
+								$d = date( 't', strtotime('first day of '.$monthName.' this year'));
 								for($day=0;$day<$d;$day++){ 
 									$date1 = date( 'Y-m-d', strtotime($poczatek_mies.' +'.$day.' day'));
 									$day_name = date('l', strtotime($date1));
@@ -336,7 +331,7 @@ if($mies < 1 || $mies > 12) $mies = (int)date("m");
 		</div>
         <div id="footer">
             <div>
-				2021 Akademia Wojsk Lądowych<div style="font-size: 10px;">Realizacja Kulas Filip</div>
+				2021 &copy; Akademia Wojsk Lądowych<div style="font-size: 10px;">Realizacja Kulas Filip</div>
 			</div>
 			<div class="updated">Ostatnia aktualizacja bazy danych: <?php echo $last_date[2]."-".$last_date[1]."-".$last_date[0]; ?></div>
         </div>
