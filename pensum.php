@@ -168,6 +168,7 @@ require 'vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
 $sem1 = array("October", "November", "December", "January", "February");
 $sem2 = array("March", "April", "May", "June", "July", "August", "September");
@@ -186,7 +187,6 @@ SELECT DISTINCT *
 FROM `prowadzacy`
 WHERE `name` = 'DEBITA'
 ORDER BY `name` ASC";
-
 
 $reader = IOFactory::createReader('Xlsx');
 $spreadsheet = $reader->load("template.xlsx");
@@ -275,7 +275,7 @@ for ($prow_id=0; $prow_id < $total; $prow_id++) {
 	$rocznik = 2021;
 	$startCol = 36;
 
-	write_init($worksheet, $prow_id, $prow[$prow_id], $startRow);
+	write_init($worksheet, $prow_id, $prow[$prow_id], $startRow, 2);
 
 	foreach($sem2 as $m) {
 		$poczatek_mies = date( 'Y-m-d', strtotime('first day of '.$m.' '.$rocznik));
@@ -343,7 +343,7 @@ echo "<a href='pensum.xlsx'>Pobierz podsumowanie</a>";
 #$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 #$writer->save('php://output');
 
-function write_init($worksheet, $prow_id, $prow, $startRow) {
+function write_init($worksheet, $prow_id, $prow, $startRow, $sem = 1) {
 	$worksheet->insertNewRowBefore($startRow+1,1);
 	$worksheet->setCellValue('A'.$startRow, $prow_id+1);
 	$worksheet->setCellValue('B'.$startRow, $prow->stopien_woj);
@@ -355,6 +355,84 @@ function write_init($worksheet, $prow_id, $prow, $startRow) {
 	$worksheet->setCellValue('H'.$startRow, $prow->pensum_ustalone_ds);
 	$worksheet->setCellValue('I'.$startRow, $prow->pensum_ustalone);
 	$worksheet->setCellValue('J'.$startRow, $prow->liczba_ponad_wymiar);
+	$x = 0;
+	if($sem == 1) $start = Coordinate::columnIndexFromString("HR"); else { $start = Coordinate::columnIndexFromString("KP"); $x = 2; }
+	$worksheet->setCellValueByColumnAndRow($start, $startRow, "=BT".$startRow);
+	$worksheet->setCellValueByColumnAndRow($start + 1, $startRow, "=DF".$startRow);
+	$worksheet->setCellValueByColumnAndRow($start + 2, $startRow, "=ER".$startRow);
+	$worksheet->setCellValueByColumnAndRow($start + 3, $startRow, "=GD".$startRow);
+	$worksheet->setCellValueByColumnAndRow($start + 4, $startRow, "=HP".$startRow);
+	if($sem == 2) {
+		$worksheet->setCellValueByColumnAndRow($start + 5, $startRow, "=JB".$startRow);
+		$worksheet->setCellValueByColumnAndRow($start + 6, $startRow, "=KN".$startRow);
+		$worksheet->setCellValueByColumnAndRow($start + 7, $startRow, "=SUM(KP".$startRow.":KV".$startRow.")");
+		$worksheet->setCellValueByColumnAndRow($start + 8, $startRow, "=KW".$startRow."/Z".$startRow);
+		$worksheet->setCellValueByColumnAndRow($start + 7 + $x, $startRow, str_replace("7",$startRow,"=SUM(BK7+CW7+EI7+FU7+HG7+IS7+KE7)-(KZ7)-(LA7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 8 + $x, $startRow, str_replace("7",$startRow,"=SUM(AZ7+BB7+BF7+CL7+CN7+CR7+DX7+DZ7+ED7+FJ7+FL7+FP7+GV7+GX7+HB7+IH7+IJ7+IN7+JT7+JV7+JZ7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 9 + $x, $startRow, str_replace("7",$startRow,"=SUM(BJ7+CV7+EH7+FT7+HF7+IR7+KD7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 10 + $x, $startRow, str_replace("7",$startRow,"=KY7+KZ7+LA7"));
+		$worksheet->setCellValueByColumnAndRow($start + 11 + $x, $startRow, str_replace("7",$startRow,"=SUM(AJ7+BV7+DH7+ET7+GF7+HR7+JD7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 12 + $x, $startRow, str_replace("7",$startRow,"=SUM(AK7+BW7+DI7+EU7+GG7+HS7+JE7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 13 + $x, $startRow, str_replace("7",$startRow,"=SUM(AL7+BX7+DJ7+EV7+GH7+HT7+JF7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 14 + $x, $startRow, str_replace("7",$startRow,"=SUM(AM7+BY7+DK7+EW7+GI7+HU7+JG7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 15 + $x, $startRow, str_replace("7",$startRow,"=SUM(AN7+BZ7+DL7+EX7+GJ7+HV7+JH7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 16 + $x, $startRow, str_replace("7",$startRow,"=SUM(AP7+CB7+DN7+EZ7+GL7+HX7+JJ7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 17 + $x, $startRow, str_replace("7",$startRow,"=SUM(AQ7+CC7+DO7+FA7+GM7+HY7+JK7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 18 + $x, $startRow, str_replace("7",$startRow,"=SUM(AR7+CD7+DP7+FB7+GN7+HZ7+JL7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 19 + $x, $startRow, str_replace("7",$startRow,"=SUM(AS7+CE7+DQ7+FC7+GO7+IA7+JM7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 20 + $x, $startRow, str_replace("7",$startRow,"=SUM(AT7+CF7+DR7+FD7+GP7+IB7+JN7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 21 + $x, $startRow, str_replace("7",$startRow,"=SUM(AU7+CG7+DS7+FE7+GQ7+IC7+JO7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 22 + $x, $startRow, str_replace("7",$startRow,"=SUM(AW7+CI7+DU7+FG7+GS7+IE7+JQ7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 23 + $x, $startRow, str_replace("7",$startRow,"=SUM(LC7+LD7+LE7+LG7+LH7+LI7+LL7+LM7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 24 + $x, $startRow, str_replace("7",$startRow,"=SUM(LF7+LJ7+LK7+LN7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 25 + $x, $startRow, str_replace("7",$startRow,"=SUM(LO7+LP7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 26 + $x, $startRow, str_replace("7",$startRow,"=SUM(BL7+CX7+EJ7+FV7+HH7+IT7+KF7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 27 + $x, $startRow, str_replace("7",$startRow,"=SUM(BM7+CY7+EK7+FW7+HI7+IU7+KG7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 28 + $x, $startRow, str_replace("7",$startRow,"=SUM(BN7+CZ7+EL7+FX7+HJ7+IV7+KH7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 29 + $x, $startRow, str_replace("7",$startRow,"=SUM(BO7+DA7+EM7+FY7+HK7+IW7+KI7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 30 + $x, $startRow, str_replace("7",$startRow,"=SUM(BP7+DB7+EN7+FZ7+HL7+IX7+KJ7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 31 + $x, $startRow, str_replace("7",$startRow,"=SUM(BQ7+DC7+EO7+GA7+HM7+IY7+KK7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 32 + $x, $startRow, str_replace("7",$startRow,"=SUM(BR7+DD7+EP7+GB7+HN7+IZ7+KL7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 33 + $x, $startRow, str_replace("7",$startRow,"=SUM(BS7+DE7+EQ7+GC7+HO7+JA7+KM7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 34 + $x, $startRow, str_replace("7",$startRow,"=LB7+LQ7+SUM(LR7:LY7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 35 + $x, $startRow, str_replace("7",$startRow,"=LZ7/I7"));
+		$worksheet->setCellValueByColumnAndRow($start + 36 + $x, $startRow, str_replace("7",$startRow,"=SUM(BU7+DG7+ES7+GE7+HQ7+JC7+KO7)"));
+		$worksheet->setCellValueByColumnAndRow($start + 37 + $x, $startRow, str_replace("7",$startRow,'=IF(LZ7>I7,LZ7-I7,"-")'));
+	} else {
+	$worksheet->setCellValueByColumnAndRow($start + 5 + $x, $startRow, "=SUM(HR".$startRow.":HV".$startRow.")");
+	$worksheet->setCellValueByColumnAndRow($start + 6 + $x, $startRow, "=HW".$startRow."/R".$startRow);
+	$worksheet->setCellValueByColumnAndRow($start + 7 + $x, $startRow, str_replace("7",$startRow,"=SUM(BK7+CW7+EI7+FU7+HG7)-(HZ7)-(IA7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 8 + $x, $startRow, str_replace("7",$startRow,"=SUM(AZ7+BB7+BF7+CL7+CN7+CR7+DX7+DZ7+ED7+FJ7+FL7+FP7+GV7+GX7+HB7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 9 + $x, $startRow, str_replace("7",$startRow,"=SUM(BJ7+CV7+EH7+FT7+HF7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 10 + $x, $startRow, str_replace("7",$startRow,"=SUM(HY7+HZ7+IA7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 11 + $x, $startRow, str_replace("7",$startRow,"=SUM(AJ7+BV7+DH7+ET7+GF7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 12 + $x, $startRow, str_replace("7",$startRow,"=SUM(AK7+BW7+DI7+EU7+GG7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 13 + $x, $startRow, str_replace("7",$startRow,"=SUM(AL7+BX7+DJ7+EV7+GH7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 14 + $x, $startRow, str_replace("7",$startRow,"=SUM(AM7+BY7+DK7+EW7+GI7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 15 + $x, $startRow, str_replace("7",$startRow,"=SUM(AN7+BZ7+DL7+EX7+GJ7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 16 + $x, $startRow, str_replace("7",$startRow,"=SUM(AP7+CB7+DN7+EZ7+GL7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 17 + $x, $startRow, str_replace("7",$startRow,"=SUM(AQ7+CC7+DO7+FA7+GM7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 18 + $x, $startRow, str_replace("7",$startRow,"=SUM(AR7+CD7+DP7+FB7+GN7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 19 + $x, $startRow, str_replace("7",$startRow,"=SUM(AS7+CE7+DQ7+FC7+GO7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 20 + $x, $startRow, str_replace("7",$startRow,"=SUM(AT7+CF7+DR7+FD7+GP7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 21 + $x, $startRow, str_replace("7",$startRow,"=SUM(AU7+CG7+DS7+FE7+GQ7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 22 + $x, $startRow, str_replace("7",$startRow,"=SUM(AW7+CI7+DU7+FG7+GS7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 23 + $x, $startRow, str_replace("7",$startRow,"=IC7+ID7+SUM(IE7:IG7)+IH7+II7+IL7+IM7"));
+	$worksheet->setCellValueByColumnAndRow($start + 24 + $x, $startRow, str_replace("7",$startRow,"=SUM(IF7+IJ7+IK7+IN7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 25 + $x, $startRow, str_replace("7",$startRow,"=SUM(IO7+IP7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 26 + $x, $startRow, str_replace("7",$startRow,"=SUM(BL7+CX7+EJ7+FV7+HH7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 27 + $x, $startRow, str_replace("7",$startRow,"=SUM(BM7+CY7+EK7+FW7+HI7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 28 + $x, $startRow, str_replace("7",$startRow,"=SUM(BN7+CZ7+EL7+FX7+HJ7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 29 + $x, $startRow, str_replace("7",$startRow,"=SUM(BO7+DA7+EM7+FY7+HK7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 30 + $x, $startRow, str_replace("7",$startRow,"=SUM(BP7+DB7+EN7+FZ7+HL7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 31 + $x, $startRow, str_replace("7",$startRow,"=SUM(BQ7+DC7+EO7+GA7+HM7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 32 + $x, $startRow, str_replace("7",$startRow,"=SUM(BR7+DD7+EP7+GB7+HN7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 33 + $x, $startRow, str_replace("7",$startRow,"=SUM(BS7+DE7+EQ7+GC7+HO7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 34 + $x, $startRow, str_replace("7",$startRow,"=IB7+IQ7+SUM(IR7:IY7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 35 + $x, $startRow, str_replace("7",$startRow,"=IZ7/I7"));
+	$worksheet->setCellValueByColumnAndRow($start + 36 + $x, $startRow, str_replace("7",$startRow,"=SUM(BU7+DG7+ES7+GE7+HQ7)"));
+	$worksheet->setCellValueByColumnAndRow($start + 37 + $x, $startRow, str_replace("7",$startRow,'=IF(IZ7>I7,IZ7-I7,"-")'));
+	}
 }
 
 function write($worksheet, $prow, $startRow, $startCol) {
@@ -363,38 +441,39 @@ function write($worksheet, $prow, $startRow, $startCol) {
 	$worksheet->setCellValueByColumnAndRow(2 + $startCol, $startRow, $prow->INF1);
 	
 	$worksheet->setCellValueByColumnAndRow(4 + $startCol, $startRow, $prow->LOG1);
-	$worksheet->setCellValueByColumnAndRow(5 + $startCol, $startRow, '=SUM()');
-	$worksheet->getCellValueByColumnAndRow(5 + $startCol, $startRow)->getStyle()->setQuotePrefix(true);
+	$worksheet->setCellValueByColumnAndRow(5 + $startCol, $startRow, "=SUM(".Coordinate::stringFromColumnIndex(0 + $startCol).$startRow.":".Coordinate::stringFromColumnIndex(4 + $startCol).$startRow.")");
 	$worksheet->setCellValueByColumnAndRow(6 + $startCol, $startRow, $prow->BN1);
 	$worksheet->setCellValueByColumnAndRow(7 + $startCol, $startRow, $prow->BN2);
 
 	$worksheet->setCellValueByColumnAndRow(9 + $startCol, $startRow, $prow->BNN2);
 	$worksheet->setCellValueByColumnAndRow(10 + $startCol, $startRow, $prow->IB1);
 	$worksheet->setCellValueByColumnAndRow(11 + $startCol, $startRow, $prow->IB2);
-
+	$worksheet->setCellValueByColumnAndRow(12 + $startCol, $startRow, "=SUM(".Coordinate::stringFromColumnIndex(6 + $startCol).$startRow.":".Coordinate::stringFromColumnIndex(11 + $startCol).$startRow.")");
 	$worksheet->setCellValueByColumnAndRow(13 + $startCol, $startRow, $prow->SPd);
-
-
+	$worksheet->setCellValueByColumnAndRow(14 + $startCol, $startRow, "=SUM(".Coordinate::stringFromColumnIndex(5 + $startCol).$startRow."+".Coordinate::stringFromColumnIndex(12 + $startCol).$startRow.")");
+	#$worksheet->setCellValueByColumnAndRow(14 + $startCol, $startRow, "=SUM(".Coordinate::stringFromColumnIndex(5 + $startCol).$startRow.";".Coordinate::stringFromColumnIndex(12 + $startCol).$startRow.")");
 	$worksheet->setCellValueByColumnAndRow(16 + $startCol, $startRow, $prow->SW_JSM_D);
 	$worksheet->setCellValueByColumnAndRow(17 + $startCol, $startRow, $prow->D1);
 	$worksheet->setCellValueByColumnAndRow(18 + $startCol, $startRow, $prow->SW_JSM_LOG);
 	$worksheet->setCellValueByColumnAndRow(19 + $startCol, $startRow, "POZOST LOG");
 	$worksheet->setCellValueByColumnAndRow(20 + $startCol, $startRow, $prow->SW_JSM_ZA);
-
+	$worksheet->setCellValueByColumnAndRow(21 + $startCol, $startRow, "=SUM(".Coordinate::stringFromColumnIndex(16 + $startCol).$startRow.":".Coordinate::stringFromColumnIndex(20 + $startCol).$startRow.")");
 	$worksheet->setCellValueByColumnAndRow(22 + $startCol, $startRow, $prow->SW_JSM_IB);
 	$worksheet->setCellValueByColumnAndRow(23 + $startCol, $startRow, "IB1");
 	$worksheet->setCellValueByColumnAndRow(24 + $startCol, $startRow, "IB2");
-	
+	$worksheet->setCellValueByColumnAndRow(25 + $startCol, $startRow, "=SUM(".Coordinate::stringFromColumnIndex(22 + $startCol).$startRow.":".Coordinate::stringFromColumnIndex(24 + $startCol).$startRow.")");
 	$worksheet->setCellValueByColumnAndRow(26 + $startCol, $startRow, $prow->MED);
-	
+	$worksheet->setCellValueByColumnAndRow(27 + $startCol, $startRow, "=SUM(".Coordinate::stringFromColumnIndex(21 + $startCol).$startRow."+".Coordinate::stringFromColumnIndex(25 + $startCol).$startRow."+".Coordinate::stringFromColumnIndex(26 + $startCol).$startRow.")");
 	$worksheet->setCellValueByColumnAndRow(28 + $startCol, $startRow, $prow->SO);
 	$worksheet->setCellValueByColumnAndRow(29 + $startCol, $startRow, $prow->K);
 	#$worksheet->setCellValueByColumnAndRow(30 + $startCol, $startRow, $prow->SW_JSM_ZA); SJO Kursy JO
-	#$worksheet->setCellValueByColumnAndRow(32 + $startCol, $startRow, $prow->); Zaj. nieregularne
-	#$worksheet->setCellValueByColumnAndRow(33 + $startCol, $startRow, $prow->); 
-	#$worksheet->setCellValueByColumnAndRow(34 + $startCol, $startRow, $prow->); Zaj. nieregularne
-	#$worksheet->setCellValueByColumnAndRow(35 + $startCol, $startRow, $prow->); 
-	#$worksheet->setCellValueByColumnAndRow(36 + $startCol, $startRow, $prow->); Zaj. nieregularne
+	#$worksheet->setCellValueByColumnAndRow(31 + $startCol, $startRow, $prow->); Zaj. nieregularne
+	#$worksheet->setCellValueByColumnAndRow(32 + $startCol, $startRow, $prow->); 
+	#$worksheet->setCellValueByColumnAndRow(33 + $startCol, $startRow, $prow->); Zaj. nieregularne
+	#$worksheet->setCellValueByColumnAndRow(34 + $startCol, $startRow, $prow->); 
+	#$worksheet->setCellValueByColumnAndRow(35 + $startCol, $startRow, $prow->); Zaj. nieregularne
+	$worksheet->setCellValueByColumnAndRow(36 + $startCol, $startRow, "=".Coordinate::stringFromColumnIndex(14 + $startCol).$startRow."+".Coordinate::stringFromColumnIndex(15 + $startCol).$startRow."+SUM(".Coordinate::stringFromColumnIndex(27 + $startCol).$startRow.":".Coordinate::stringFromColumnIndex(35 + $startCol).$startRow.")");
+
 }
 
 
